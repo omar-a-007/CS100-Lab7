@@ -30,7 +30,7 @@ class Factory /*: public abstractFactory */ {
 	public:
 		Base* create()  			{ return new Rand();}
 		Base* create(double value)  { return new Op(value); }
-		Base* create(const std::string& comp, Base& x, Base& y) 
+		Base* create(const std::string& comp, Base* x, Base* y) 
 		{
 			/*
 			std::map<std::string, Base*> map_CreateFuncs = {
@@ -67,13 +67,16 @@ class factory_Calculator
 			q.pop();
 			return r;
 		};
-
-		Factory factory;
-		Base* create(char** operation);
 		bool isDouble(const std::string& s) {
-			try{std::stod(s); return true;  }
+			try{
+				size_t sz;
+				std::stod(s, &sz); 	// sz contains the last position of the double in the string
+				return s.length() == sz;
+			}
 			catch (...)		 {return false; }
 		}
+
+		Factory factory;
 	public:
 		Base* parse(char** operations, int qty);
 };

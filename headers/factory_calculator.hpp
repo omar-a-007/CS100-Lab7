@@ -18,43 +18,18 @@
 
 /*
 class abstractFactory {
-	public:
+	protected:
 		abstractFactory() { }
 		virtual ~abstractFactory() { }
 		virtual Base* create() = 0;
 		virtual Base* create(double value) = 0;
 		virtual Base* create(const std::string& comp, Base* x, Base* y) = 0;
+	public:
+		Base* parse(char** operations, int qty);
 };
 */
-class Factory /*: public abstractFactory */ {
-	public:
-		Base* create()  			{ return new Rand();}
-		Base* create(double value)  { return new Op(value); }
-		Base* create(const std::string& comp, Base* x, Base* y) 
-		{
-			/*
-			std::map<std::string, Base*> map_CreateFuncs = {
-				{ "+", new Add(x,y) },
-				{ "-", new Sub(x,y) },
-				{ "*", new Mult(x,y) },
-				{ "/", new Div(x,y) },
-				{ "**", new Pow(x,y) }
-			};
-			auto found = map_CreateFuncs.find(comp);
-			return found != map_CreateFuncs.end() ? found->second : nullptr;
-			*/
 
-			     if (comp == "+")  return new Add(x,y);
-			else if (comp == "-")  return new Sub(x,y);
-			else if (comp == "*")  return new Mult(x,y);
-			else if (comp == "/")  return new Div(x,y);
-			else if (comp == "**") return new Pow(x,y);
-			else return nullptr;
-		}
-};
-
-
-class factory_Calculator
+class Factory_Calculator
 {
 	private:
 		Base* getPop(std::queue<Base*>& q) {
@@ -76,7 +51,19 @@ class factory_Calculator
 			catch (...)		 {return false; }
 		}
 
-		Factory factory;
+	protected:
+		Base* create()  			{ return new Rand();}
+		Base* create(double value)  { return new Op(value); }
+		Base* create(const std::string& comp, Base* x, Base* y) 
+		{
+			     if (comp == "+")  return new Add(x,y);
+			else if (comp == "-")  return new Sub(x,y);
+			else if (comp == "*")  return new Mult(x,y);
+			else if (comp == "/")  return new Div(x,y);
+			else if (comp == "**") return new Pow(x,y);
+			else return nullptr;
+		}
+
 	public:
 		Base* parse(char** operations, int qty);
 };

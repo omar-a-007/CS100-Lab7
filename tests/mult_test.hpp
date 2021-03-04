@@ -3,36 +3,74 @@
 
 #include "gtest/gtest.h"
 
+#include "../headers/op.hpp"
 #include "../headers/mult.hpp"
 
-/* OLD! From the Composite Lab! Only use as reference.
-TEST(MultTest, MultEvaluateNonZero) {
-    Base* eight = new Op(8);
-    Base* five = new Op(5);
-    Base* test = new Mult(eight, five);
-    EXPECT_EQ(test->evaluate(), 40);
+TEST(MultTest, MultTwelve) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(8);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 32);
+	EXPECT_EQ(test->stringify(), "(4 * 8)");
 }
 
-TEST(MultTest, MultEvaluateNegative) {
-    Base* negEight = new Op(-8);
-    Base* five = new Op(5);
-    Base* test = new Mult(negEight, five);
-    EXPECT_EQ(test->evaluate(), -40);
+TEST(MultTest, MultOneNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(-6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), -24);
 }
 
-TEST(MultTest, MultStringifyTwoOps) {
-    Base* eight = new Op(8);
-    Base* five = new Op(5);
-    Base* test = new Mult(eight, five);
-    EXPECT_EQ(test->stringify(), "(8.000000 * 5.000000)");
+TEST(MultTest, MultTwoNegatives) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-4);
+	y = new Op(-6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 24);
 }
 
-TEST(MultTest, MultStringifyNegative) {
-    Base* negEight = new Op(-8);
-    Base* five = new Op(5);
-    Base* test = new Mult(negEight, five);
-    EXPECT_EQ(test->stringify(), "(-8.000000 * 5.000000)");
+TEST(MultTest, StringNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(3.5);
+	y = new Op(-6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->stringify(), "(3.5 * -6)");
 }
-*/
+
+TEST(MultTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 5792869584);
+	EXPECT_EQ(test->stringify(), "(965478264 * 6)");
+}
+
+TEST(MultTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(-6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), -5792869584);
+	EXPECT_EQ(test->stringify(), "(965478264 * -6)");
+}
+
+TEST(MultTest, multByZero) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-65486135);
+	y = new Op(0);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 0);
+	EXPECT_EQ(test->stringify(), "(-65486135 * 0)");
+}
 
 #endif //__MULT_TEST_HPP__

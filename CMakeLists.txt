@@ -9,10 +9,10 @@ ADD_EXECUTABLE(calculator
     src/factory_calculator.cpp
 )
 
-#ADD_EXECUTABLE(test
-#    tests/unit_test.cpp
-#    src/facttory_calculator.cpp
-#)
+ADD_EXECUTABLE(test
+    tests/unit_test.cpp
+    src/factory_calculator.cpp
+)
 
-#TARGET_LINK_LIBRARIES(test gtest)
-#TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
+TARGET_LINK_LIBRARIES(test gtest)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

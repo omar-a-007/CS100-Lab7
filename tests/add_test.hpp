@@ -3,36 +3,65 @@
 
 #include "gtest/gtest.h"
 
+#include "../headers/op.hpp"
 #include "../headers/add.hpp"
 
-/* OLD! From the Composite Lab! Only use as reference.
 TEST(AddTest, AddTwelve) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Add(four, eight);
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(8);
+	test = new Add(x, y);
 	EXPECT_EQ(test->evaluate(), 12);
+	EXPECT_EQ(test->stringify(), "(4 + 8)");
 }
 
-TEST(StringTest, AddTwelve) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Add(four, eight);
-	EXPECT_EQ(test->stringify(), "(4.000000 + 8.000000)");
-}
-
-TEST(AddNegative, AddTwo) {
-	Base* four = new Op(4);
-	Base* six = new Op(-6);
-	Base* test = new Add(four, six);
+TEST(AddTest, AddOneNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(-6);
+	test = new Add(x, y);
 	EXPECT_EQ(test->evaluate(), -2);
 }
 
-TEST(StringNegative, AddTwo) {
-	Base* four = new Op(4);
-	Base* six = new Op(-6);
-	Base* test = new Add(four, six);
-	EXPECT_EQ(test->stringify(), "(4.000000 + -6.000000)");
+TEST(AddTest, AddTwoNegatives) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-4);
+	y = new Op(-6);
+	test = new Add(x, y);
+	EXPECT_EQ(test->evaluate(), -10);
 }
-*/
+
+TEST(AddTest, StringNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(3.5);
+	y = new Op(-6);
+	test = new Add(x, y);
+	EXPECT_EQ(test->stringify(), "(3.5 + -6)");
+}
+
+TEST(AddTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Add(x, y);
+	EXPECT_EQ(test->evaluate(), 965478270);
+	EXPECT_EQ(test->stringify(), "(965478264 + 6)");
+}
+
+TEST(AddTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(6);
+	y = new Op(-965478264);
+	test = new Add(x, y);
+	EXPECT_EQ(test->evaluate(), -965478258);
+	EXPECT_EQ(test->stringify(), "(6 + -965478264)");
+}
+
 
 #endif //__OP_TEST_HPP__

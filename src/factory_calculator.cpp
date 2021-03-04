@@ -27,7 +27,6 @@ Base* Factory_Calculator::parse(char** input, int qty)
         
         if (r == nullptr) return nullptr;
         else operands.push(r);
-        //operators.pop();
     }
     if (operators.size() != 0) {
         Base *x = getPop(operands), *y = getPop(operands);

@@ -3,37 +3,74 @@
 
 #include "gtest/gtest.h"
 
+#include "../headers/op.hpp"
 #include "../headers/sub.hpp"
 
-/* OLD! From the Composite Lab! Only use as reference.
+
 TEST(SubTest, SubTwelve) {
-	Base* num1 = new Op(4);
-	Base* num2 = new Op(8);
-        Base* test = new Sub(num1, num2);
-        EXPECT_EQ(test->evaluate(), -4);
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(8);
+	y = new Op(4);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 4);
+	EXPECT_EQ(test->stringify(), "(8 - 4)");
+
+	delete test, x, y;
 }
 
-TEST(StringTest, SubTwelve) {
-        Base* num1 = new Op(4);
-        Base* num2 = new Op(8);
-        Base* test = new Sub(num1, num2);
-        EXPECT_EQ(test->stringify(), "(4.000000 - 8.000000)");
+TEST(SubTest, SubOneNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(-6);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 10);
+
+	delete test, x, y;
 }
 
-TEST(SubNegative, SubTen) {
-        Base* num1 = new Op(4);
-        Base* num2 = new Op(-6);
-        Base* test = new Sub(num1, num2);
-        EXPECT_EQ(test->evaluate(), 10);
+TEST(SubTest, SubTwoNegatives) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-6);
+	y = new Op(-4);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), -2);
+
+	delete test, x, y;
 }
 
-TEST(StringNegative, SubTen) {
-        Base* num1 = new Op(4);
-        Base* num2 = new Op(-6);
-        Base* test = new Sub(num1, num2);
-        EXPECT_EQ(test->stringify(), "(4.000000 - -6.000000)");
+TEST(SubTest, StringNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(3.5);
+	y = new Op(-6);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->stringify(), "(3.5 - -6)");
+
+	delete test, x, y;
 }
-*/
+
+TEST(SubTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 965478258);
+	EXPECT_EQ(test->stringify(), "(965478264 - 6)");
+}
+
+TEST(SubTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(6);
+	y = new Op(-965478264);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 965478270);
+	EXPECT_EQ(test->stringify(), "(6 - -965478264)");
+}
 
 
 #endif //__SUB_TEST_HPP__

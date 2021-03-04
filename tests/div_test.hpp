@@ -3,36 +3,77 @@
 
 #include "gtest/gtest.h"
 
+#include "../headers/base.hpp"
+#include "../headers/op.hpp"
 #include "../headers/div.hpp"
 
-/* OLD! From the Composite Lab! Only use as reference.
-TEST(DivTest, DivEvalPos) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Div(eight, four);
-	EXPECT_EQ(test->evaluate(), 2);
+
+TEST(DivTest, DivTwelve) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(8);
+	test = new Div(x, y);
+	EXPECT_EQ(test->evaluate(), 0.5);
+	EXPECT_EQ(test->stringify(), "(4 / 8)");
+
+	delete test, x, y;
 }
 
-TEST(DivTest, DivStringifyPos) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Div(four, eight);
-	EXPECT_EQ(test->stringify(), "(4.000000 / 8.000000)");
+TEST(DivTest, DivOneNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-6);
+	y = new Op(4);
+	test = new Div(x, y);
+	EXPECT_EQ(test->evaluate(), -1.5);
+
+	delete test, x, y;
 }
 
-TEST(DivTest, DivEvalNeg) {
-	Base* four = new Op(4);
-	Base* negeight = new Op(-8);
-	Base* test = new Div(negeight, four);
-	EXPECT_EQ(test->evaluate(), -2);
+TEST(DivTest, DivTwoNegatives) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-6);
+	y = new Op(-4);
+	test = new Div(x, y);
+	EXPECT_EQ(test->evaluate(), 1.5);
+
+	delete test, x, y;
 }
 
-TEST(DivTest, DivStringifyNeg) {
-	Base* four = new Op(4);
-	Base* negsix = new Op(-6);
-	Base* test = new Div(four, negsix);
-	EXPECT_EQ(test->stringify(), "(4.000000 / -6.000000)");
+TEST(DivTest, StringNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(3.5);
+	y = new Op(-6);
+	test = new Div(x, y);
+	EXPECT_EQ(test->stringify(), "(3.5 / -6)");
+
+	delete test, x, y;
 }
-*/
+
+TEST(DivTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Div(x, y);
+	EXPECT_EQ(test->evaluate(), 160913044);
+	EXPECT_EQ(test->stringify(), "(965478264 / 6)");
+
+	delete test, x, y;
+}
+
+TEST(DivTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(-6);
+	test = new Div(x, y);
+	EXPECT_EQ(test->evaluate(), -160913044);
+	EXPECT_EQ(test->stringify(), "(965478264 / -6)");
+}
+
 
 #endif //__DIV_TEST_HPP__

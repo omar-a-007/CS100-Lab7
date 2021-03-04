@@ -3,51 +3,74 @@
 
 #include "gtest/gtest.h"
 
+#include "../headers/op.hpp"
 #include "../headers/pow.hpp"
 
-/* OLD! From the Composite Lab! Only use as reference.
 TEST(PowTest, PowEvalPos) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Pow(eight, four);
-	EXPECT_EQ(test->evaluate(), 4096);
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(8);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 65536);
+	EXPECT_EQ(test->stringify(), "(4 ** 8)");
 }
 
-TEST(PowTest, PowStringifyPos) {
-	Base* four = new Op(4);
-	Base* eight = new Op(8);
-	Base* test = new Pow(four, eight);
-	EXPECT_EQ(test->stringify(), "(4.000000 ** 8.000000)");
+
+TEST(PowTest, PowLargeNum) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(16);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 4294967296);
+	EXPECT_EQ(test->stringify(), "(4 ** 16)");
+}
+
+TEST(PowTest, PowOneNegativeExp) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(10);
+	y = new Op(-2);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.01);
 }
 
 TEST(PowTest, PowEvalNegEvenExp) {
-	Base* four = new Op(4);
-	Base* negeight = new Op(-8);
-	Base* test = new Pow(negeight, four);
-	EXPECT_EQ(test->evaluate(), 4096);
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+
+	x = new Op(4);
+	y = new Op(-2);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.0625);
 }
 
 TEST(PowTest, PowEvalNegOddExp) {
-	Base* three = new Op(3);
-	Base* negeight = new Op(-8);
-	Base* test = new Pow(negeight, three);
-	EXPECT_EQ(test->evaluate(), -512);
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+
+	x = new Op(4);
+	y = new Op(-3);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.015625);
 
 }
 
-TEST(PowTest, PowEvalNegExp) {
-	Base* twenty = new Op(20);
-	Base* negtwo = new Op(-2);
-	Base* test = new Pow(twenty, negtwo);
-	EXPECT_EQ(test->evaluate(), 0.0025);
+TEST(PowTest, PowTwoNegatives) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-10);
+	y = new Op(-2);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.01);
 }
 
-TEST(PowTest, PowStringifyNeg) {
-	Base* four = new Op(4);
-	Base* negeight = new Op(-8);
-	Base* test = new Pow(negeight, four);
-	EXPECT_EQ(test->stringify(), "(-8.000000 ** 4.000000)");
+TEST(PowTest, StringNegative) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-3.5);
+	y = new Op(6);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->stringify(), "(-3.5 ** 6)");
 }
-*/
 
 #endif //__POW_TEST_HPP__

@@ -6,6 +6,8 @@ int main(int argc, char** argv)
 {
     Factory_Calculator calc;
 
+    std::cout << argv[1] << "\n\n";
+
     Base* expr2 = calc.parse(argv, argc);
     std::cout << ((expr2 != nullptr) 
         ? expr2->stringify() + " = " + std::to_string(expr2->evaluate()) 
@@ -14,4 +16,4 @@ int main(int argc, char** argv)
 
     delete expr2;
     return 0; 
-} 
+}

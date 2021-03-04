@@ -4,17 +4,23 @@
 #include <string>
 
 class Base {
-
 	protected:
 		Base* x;	// Basically, the lhs operator
 		Base* y;	// Basically, the rhs operator
 	
 	public:
 		/* Constructors */
-		Base() : x(nullptr), y(nullptr) { }
-		Base(Base* x, Base* y) : x(x), y(y) { }
-
-		virtual ~Base() { delete x; delete y;}
+        Base() { 
+            x = nullptr; y = nullptr;
+        }
+        Base(Base* x, Base* y){
+            this->x = x;
+            this->y = y;
+        }
+		virtual ~Base() { 
+			delete x; 
+			delete y;
+		}
 
 		/* Pure Virtual Functions */
 		virtual double evaluate() = 0;
